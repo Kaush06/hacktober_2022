@@ -1,0 +1,104 @@
+#include <stdio.h>
+void Sets_Formation(int size , int start);
+void Print_Sets(int start, int limit);
+int  Compatible_Batch(int n);
+int Largest_Batch(int n);
+
+int main()
+{
+    int n, sum = 0, i;
+    printf("Enter the number of students : ");
+    scanf("%d",&n);
+   
+    printf("\n");
+    
+    printf("The sets are :");
+    Sets_Formation(n, 1);
+    
+    for (i = 0; i < n; i++)
+    {
+        sum = sum + Compatible_Batch(i+2) - Compatible_Batch(i);
+    }
+
+    printf("\n\nNumber of ways of a compatible batch can be chosen is : ");
+    printf("%d",sum);
+    printf("\n\n");
+    
+    printf("Largest batch : ");
+    Largest_Batch(n);
+    return 0;
+}
+
+void Sets_Formation(int size , int start)           
+{                                                   
+  {
+      printf( "{ ");
+      Print_Sets(start, size);
+      printf ("}");
+      printf ("  ");
+      
+  }
+  if (start <= size)
+  {
+    Sets_Formation(size -2 , start);
+    Sets_Formation(size , (start + 1));
+      
+  }
+}
+
+void Print_Sets(int start, int limit)
+{
+
+  if (start <= limit)
+  {
+    printf ("%d ",start);
+    Print_Sets(start +2, limit);
+  }
+}
+
+int  Compatible_Batch(int n)                    
+{                                                  
+    if (n == 0)
+    {
+        return 0;
+    }
+    else if (n == 1)
+    {
+        return 1;
+    }
+    else
+    {
+        return (Compatible_Batch(n - 1) + Compatible_Batch(n - 2));
+    }
+}
+
+int Largest_Batch(int n)
+{
+    int i, j=0;
+    
+    if(n%2==0)                          
+    {                                       
+       printf("{");
+       for(i=1; i<=n/2; i+=2)
+       {
+          printf(" %d ",i);
+       }
+       printf("}");
+       
+       printf("{");
+       for(j = n/2 + 1; j<=n; j+=2)
+       {
+          printf(" %d ",j);
+       }
+       printf("}");
+    }
+    else
+    {
+       printf("{");
+       for(i=1; i<=n; i+=2)
+       {
+          printf(" %d ",i);
+       }
+       printf("}");
+    }
+}
